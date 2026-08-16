@@ -17,6 +17,9 @@ public class BingBong {
         // Instantiate scanner for user input
         Scanner scanner = new Scanner(System.in);
 
+        String[] tasks = new String[100];
+        int taskCount = 0;
+
         while (true) {
             String input = scanner.nextLine();
 
@@ -25,9 +28,16 @@ public class BingBong {
                 break;
             }
 
-            // Echo user input
+            // Stores and displays user's text inputs
             System.out.println(horizontalLine);
-            System.out.println(input);
+            if (input.equals("list")) {
+                for (int i = 0; i < taskCount; i++) {
+                    System.out.println((i + 1) + ". " + tasks[i]);
+                }
+            } else {
+                tasks[taskCount++] = input;
+                System.out.println("added: " + input);
+            }
             System.out.println(horizontalLine);
         }
 
