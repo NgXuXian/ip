@@ -18,7 +18,9 @@ public class BingBong {
         Scanner scanner = new Scanner(System.in);
 
         String[] tasks = new String[100];
+        boolean[] isDone = new boolean[100];
         int taskCount = 0;
+
 
         while (true) {
             String input = scanner.nextLine();
@@ -31,11 +33,21 @@ public class BingBong {
             // Stores and displays user's text inputs
             System.out.println(horizontalLine);
             if (input.equals("list")) {
+                System.out.println("BingBong shows your list:");
                 for (int i = 0; i < taskCount; i++) {
-                    System.out.println((i + 1) + ". " + tasks[i]);
+                    String markStatus = isDone[i] ? "X" : " ";
+                    System.out.println((i + 1) + ". [" + markStatus + "] " + tasks[i]);
                 }
-            } else {
-                tasks[taskCount++] = input;
+            } else if (input.startsWith("mark")) {
+                int taskIndex = Integer.parseInt(input.substring(5)) - 1;
+                isDone[taskIndex] = true;
+                System.out.println("BingBong marks this task as done:");
+                System.out.println("[X] " + tasks[taskIndex]);
+            }
+            else {
+                tasks[taskCount] = input;
+                isDone[taskCount] = false;
+                taskCount++;
                 System.out.println("added: " + input);
             }
             System.out.println(horizontalLine);
