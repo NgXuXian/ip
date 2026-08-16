@@ -1,64 +1,5 @@
 import java.util.Scanner;
 
-class Task {
-    protected String description;
-    protected boolean isDone;
-    protected char type; // 'T' for Todos, 'D' for Deadlines, 'E' for Events
-    protected String by;
-    protected String from;
-    protected String to;
-
-    // Constructor for Todos
-    public Task(String description) {
-        this.description = description;
-        this.isDone = false;
-        this.type = 'T';
-    }
-
-    // constructor for Deadlines
-    public Task(String description, String by) {
-        this.description = description;
-        this.isDone = false;
-        this.type = 'D';
-        this.by = by;
-    }
-
-    // Constructor for Events
-    public Task(String description, String from, String to) {
-        this.description = description;
-        this.isDone = false;
-        this.type = 'E';
-        this.from = from;
-        this.to = to;
-    }
-
-    public String getStatusIcon() {
-        return (isDone ? "X" : " "); // Mark done task with X
-    }
-
-    public void mark() {
-        this.isDone = true;
-    }
-
-    public void unmark() {
-        this.isDone = false;
-    }
-
-    @Override
-    public String toString() {
-        String typeIcon = "[" + this.type + "] ";
-        String statusIcon = "[" + getStatusIcon() + "] ";
-        if (this.type == 'E') {
-            return typeIcon + statusIcon + this.description + "(from: " + this.from + " to: " + this.to + ")";
-        } else if (this.type == 'D') {
-            return typeIcon + statusIcon + this.description + "(by: " + this.by + ")";
-        } else {
-            return typeIcon + statusIcon + this.description;
-        }
-    }
-}
-
-
 public class BingBong {
     public static void main(String[] args) {
         String banner = " ___  _             ___                 \n"
@@ -89,6 +30,7 @@ public class BingBong {
 
             // Stores and displays user's text inputs
             System.out.println(horizontalLine);
+
             if (input.equals("list")) {
                 System.out.println("BingBong shows your list:");
                 for (int i = 0; i < taskCount; i++) {
@@ -104,21 +46,20 @@ public class BingBong {
                 tasks[taskIndex].unmark();
                 System.out.println("BingBong marks this task as not done yet:");
                 System.out.println(tasks[taskIndex].toString());
-
             } else if (input.startsWith("todo")) {
                 String desc = input.substring(5);
-                tasks[taskCount] = new Task(desc);
+                tasks[taskCount] = new Todo(desc);
                 taskCount++;
-                System.out.println("BingBong added this task to the list(" + taskCount + " tasks total): ");
+                System.out.println("BingBong added this task to the list(" + taskCount + " task(s) total): ");
                 System.out.println(tasks[taskCount - 1].toString());
             } else if (input.startsWith("deadline")) {
                 String content = input.substring(9);
                 int byIndex = content.indexOf("/by");
                 String desc = content.substring(0, byIndex).trim();
                 String by = content.substring(byIndex + 4).trim();
-                tasks[taskCount] = new Task(desc, by);
+                tasks[taskCount] = new Deadline(desc, by);
                 taskCount++;
-                System.out.println("BingBong added this task to the list(" + taskCount + " tasks total): ");
+                System.out.println("BingBong added this task to the list(" + taskCount + " task(s) total): ");
                 System.out.println(tasks[taskCount - 1].toString());
             } else if (input.startsWith("event")) {
                 String content = input.substring(6);
@@ -127,23 +68,22 @@ public class BingBong {
                 String desc = content.substring(0, fromIndex).trim();
                 String from = content.substring(fromIndex + 6, toIndex).trim();
                 String to = content.substring(toIndex + 4).trim();
-                tasks[taskCount] = new Task(desc, from, to);
+                tasks[taskCount] = new Event(desc, from, to);
                 taskCount++;
-                System.out.println("BingBong added this task to the list(" + taskCount + " tasks total): ");
+                System.out.println("BingBong added this task to the list(" + taskCount + " task(s) total): ");
                 System.out.println(tasks[taskCount - 1].toString());
-            }
-
-            else {
-                tasks[taskCount] = new Task(input);
+            } else {
+                tasks[taskCount] = new Todo(input);
                 taskCount++;
-                System.out.println("added: " + input);
+                System.out.println("BingBong added this task to the list(" + taskCount + " task(s) total): ");
+                System.out.println(tasks[taskCount - 1].toString());
             }
             System.out.println(horizontalLine);
         }
 
         // "bye" message
         System.out.println(horizontalLine);
-        System.out.println("Bye. BingBong hopes to see you again soon!");
+        System.out.println("Bye. BingBong misses you!");
         System.out.println(horizontalLine);
 
         scanner.close();
