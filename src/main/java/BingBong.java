@@ -31,52 +31,94 @@ public class BingBong {
             // Stores and displays user's text inputs
             System.out.println(horizontalLine);
 
-            if (input.equals("list")) {
-                System.out.println("BingBong shows your list:");
-                for (int i = 0; i < taskCount; i++) {
-                    System.out.println((i + 1) + ". " + tasks[i].toString());
+            try {
+                if (input.equals("list")) {
+                    System.out.println("BingBong shows your list:");
+                    for (int i = 0; i < taskCount; i++) {
+                        System.out.println((i + 1) + ". " + tasks[i].toString());
+                    }
+
+                } else if (input.startsWith("mark")) {
+                    if (input.length() <= 5) {
+                        throw new BingBongException("Please enter a valid number! :(");
+                    }
+                    int taskIndex = Integer.parseInt(input.substring(5)) - 1;
+                    if (taskIndex < 0 || taskIndex >= taskCount) {
+                        throw new BingBongException("That task slot does not exist in your list! :(");
+                    }
+                    tasks[taskIndex].mark();
+                    System.out.println("BingBong marks this task as done:");
+                    System.out.println(tasks[taskIndex].toString());
+
+                } else if (input.startsWith("unmark")) {
+                    if (input.length() <= 7) {
+                        throw new BingBongException("Please enter a valid number! :(");
+                    }
+                    int taskIndex = Integer.parseInt(input.substring(7)) - 1;
+                    if (taskIndex < 0 || taskIndex >= taskCount) {
+                        throw new BingBongException("That task slot does not exist in your list! :(");
+                    }
+                    tasks[taskIndex].unmark();
+                    System.out.println("BingBong marks this task as not done yet:");
+                    System.out.println(tasks[taskIndex].toString());
+
+                } else if (input.startsWith("todo")) {
+                    if (input.length() <= 5 || input.substring(4).trim().isEmpty()) {
+                        throw new BingBongException("The description of a todo cannot be blank. :(");
+                    }
+                    String desc = input.substring(5);
+                    tasks[taskCount] = new Todo(desc);
+                    taskCount++;
+                    System.out.println("BingBong added this task to the list(" + taskCount + " task(s) total): ");
+                    System.out.println(tasks[taskCount - 1].toString());
+
+                } else if (input.startsWith("deadline")) {
+                    if (input.length() <= 9 || input.substring(8).trim().isEmpty()) {
+                        throw new BingBongException("The description of a deadline cannot be blank. :(");
+                    }
+                    String content = input.substring(9);
+                    int byIndex = content.indexOf("/by");
+                    if (byIndex == -1) {
+                        throw new BingBongException("A deadline must include a target timing using '/by'.");
+                    }
+                    String desc = content.substring(0, byIndex).trim();
+                    String by = content.substring(byIndex + 4).trim();
+                    if (desc.isEmpty() || by.isEmpty()) {
+                        throw new BingBongException("Missing fields. BingBong needs the deadline description and target time of the deadline. :(");
+                    }
+                    tasks[taskCount] = new Deadline(desc, by);
+                    taskCount++;
+                    System.out.println("BingBong added this task to the list(" + taskCount + " task(s) total): ");
+                    System.out.println(tasks[taskCount - 1].toString());
+
+                } else if (input.startsWith("event")) {
+                    if (input.length() <= 6 || input.substring(5).trim().isEmpty()) {
+                        throw new BingBongException("The description of an event cannot be blank. :(");
+                    }
+                    String content = input.substring(6);
+                    int fromIndex = content.indexOf("/from");
+                    int toIndex = content.indexOf("/to");
+                    if (fromIndex == -1 || toIndex == -1 || fromIndex > toIndex) {
+                        throw new BingBongException("An event requires valid time constraints using '/from' and '/to'.");
+                    }
+                    String desc = content.substring(0, fromIndex).trim();
+                    String from = content.substring(fromIndex + 6, toIndex).trim();
+                    String to = content.substring(toIndex + 4).trim();
+                    if (desc.isEmpty() || from.isEmpty() || to.isEmpty()) {
+                        throw new BingBongException("Missing fields. BingBong needs the event description, start and end parameters.");
+                    }
+                    tasks[taskCount] = new Event(desc, from, to);
+                    taskCount++;
+                    System.out.println("BingBong added this task to the list(" + taskCount + " task(s) total): ");
+                    System.out.println(tasks[taskCount - 1].toString());
+
+                } else {
+                    throw new BingBongException("BingBong does not know what that means... :(");
                 }
-            } else if (input.startsWith("mark")) {
-                int taskIndex = Integer.parseInt(input.substring(5)) - 1;
-                tasks[taskIndex].mark();
-                System.out.println("BingBong marks this task as done:");
-                System.out.println(tasks[taskIndex].toString());
-            } else if (input.startsWith("unmark")) {
-                int taskIndex = Integer.parseInt(input.substring(7)) - 1;
-                tasks[taskIndex].unmark();
-                System.out.println("BingBong marks this task as not done yet:");
-                System.out.println(tasks[taskIndex].toString());
-            } else if (input.startsWith("todo")) {
-                String desc = input.substring(5);
-                tasks[taskCount] = new Todo(desc);
-                taskCount++;
-                System.out.println("BingBong added this task to the list(" + taskCount + " task(s) total): ");
-                System.out.println(tasks[taskCount - 1].toString());
-            } else if (input.startsWith("deadline")) {
-                String content = input.substring(9);
-                int byIndex = content.indexOf("/by");
-                String desc = content.substring(0, byIndex).trim();
-                String by = content.substring(byIndex + 4).trim();
-                tasks[taskCount] = new Deadline(desc, by);
-                taskCount++;
-                System.out.println("BingBong added this task to the list(" + taskCount + " task(s) total): ");
-                System.out.println(tasks[taskCount - 1].toString());
-            } else if (input.startsWith("event")) {
-                String content = input.substring(6);
-                int fromIndex = content.indexOf("/from");
-                int toIndex = content.indexOf("/to");
-                String desc = content.substring(0, fromIndex).trim();
-                String from = content.substring(fromIndex + 6, toIndex).trim();
-                String to = content.substring(toIndex + 4).trim();
-                tasks[taskCount] = new Event(desc, from, to);
-                taskCount++;
-                System.out.println("BingBong added this task to the list(" + taskCount + " task(s) total): ");
-                System.out.println(tasks[taskCount - 1].toString());
-            } else {
-                tasks[taskCount] = new Todo(input);
-                taskCount++;
-                System.out.println("BingBong added this task to the list(" + taskCount + " task(s) total): ");
-                System.out.println(tasks[taskCount - 1].toString());
+            } catch (BingBongException e) {
+                System.out.println(e.getMessage());
+            } catch (NumberFormatException e) {
+                System.out.println("Please enter a valid number! :(");
             }
             System.out.println(horizontalLine);
         }
