@@ -8,4 +8,9 @@ class Todo extends Task {
     public String toString() {
         return "[T] [" + getStatusIcon() + "] " + this.description;
     }
+
+    @Override
+    public String formatToFile() {
+        return "T | " + getStatusBinary() + " | " + this.description;
+    }
 }

@@ -19,4 +19,10 @@ public abstract class Task {
     public void unmark() {
         this.isDone = false;
     }
+
+    protected String getStatusBinary() {
+        return isDone ? "1" : "0";
+    }
+
+    public abstract  String formatToFile();
 }

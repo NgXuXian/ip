@@ -1,5 +1,6 @@
 import java.util.Scanner;
 import java.util.ArrayList;
+import java.io.File;
 
 public class BingBong {
 
@@ -31,7 +32,8 @@ public class BingBong {
 
         // Instantiate scanner for user input
         Scanner scanner = new Scanner(System.in);
-        ArrayList<Task> tasks = new ArrayList<>();
+        Storage storage = new Storage("." + File.separator + "data" + File.separator + "bingbong.txt");
+        ArrayList<Task> tasks = storage.load();
 
         while (true) {
             String input = scanner.nextLine();
@@ -64,6 +66,8 @@ public class BingBong {
                     System.out.println("BingBong marks this task as done:");
                     System.out.println(tasks.get(taskIndex).toString());
 
+                    storage.save(tasks);
+
                 } else if (type == CommandType.UNMARK) {
                     if (input.length() <= 7) {
                         throw new BingBongException("Please enter a valid number! :(");
@@ -76,6 +80,8 @@ public class BingBong {
                     System.out.println("BingBong marks this task as not done yet:");
                     System.out.println(tasks.get(taskIndex).toString());
 
+                    storage.save(tasks);
+
                 } else if (type == CommandType.TODO) {
                     if (input.length() <= 5 || input.substring(4).trim().isEmpty()) {
                         throw new BingBongException("The description of a todo cannot be blank. :(");
@@ -84,6 +90,8 @@ public class BingBong {
                     tasks.add(new Todo(desc));
                     System.out.println("BingBong added this task to the list(" + tasks.size() + " task(s) total): ");
                     System.out.println(tasks.get(tasks.size() - 1).toString());
+
+                    storage.save(tasks);
 
                 } else if (type == CommandType.DEADLINE) {
                     if (input.length() <= 9 || input.substring(8).trim().isEmpty()) {
@@ -102,6 +110,8 @@ public class BingBong {
                     tasks.add(new Deadline(desc, by));
                     System.out.println("BingBong added this task to the list(" + tasks.size() + " task(s) total): ");
                     System.out.println(tasks.get(tasks.size() - 1).toString());
+
+                    storage.save(tasks);
 
                 } else if (type == CommandType.EVENT) {
                     if (input.length() <= 6 || input.substring(5).trim().isEmpty()) {
@@ -123,6 +133,8 @@ public class BingBong {
                     System.out.println("BingBong added this task to the list(" + tasks.size() + " task(s) total): ");
                     System.out.println(tasks.get(tasks.size() - 1).toString());
 
+                    storage.save(tasks);
+
                 } else if (type == CommandType.DELETE) {
                     if (input.length() <= 7) {
                         throw new BingBongException("Please enter a valid number! :(");
@@ -134,6 +146,8 @@ public class BingBong {
                     Task removedTask = tasks.remove(taskIndex);
                     System.out.println("BingBong removed this task from the list(" + tasks.size() + " task(s) remaining): ");
                     System.out.println(removedTask.toString());
+
+                    storage.save(tasks);
 
                 } else {
                     throw new BingBongException("BingBong does not know what that means... :(");
