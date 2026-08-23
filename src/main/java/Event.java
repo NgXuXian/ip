@@ -11,14 +11,11 @@ class Event extends Task {
 
     @Override
     public String toString() {
-        return "[E] ["
-                + getStatusIcon()
-                + "] "
-                + this.description
-                + "(from: "
-                + this.from
-                + " to: "
-                + this.to
-                + ")";
+        return "[E] [" + getStatusIcon() + "] " + this.description + "(from: " + this.from + " to: " + this.to + ")";
+    }
+
+    @Override
+    public String formatToFile() {
+        return "E | " + getStatusBinary() + " | " + this.description + " | " + this.from + " | " + this.to;
     }
 }
