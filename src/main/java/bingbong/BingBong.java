@@ -1,3 +1,5 @@
+package bingbong;
+
 import java.io.File;
 
 import bingbong.command.Command;
