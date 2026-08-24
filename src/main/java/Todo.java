@@ -1,5 +1,9 @@
-// Todo class: tasks without any date/time attached to them
+/**
+ * Represents a simple task without any date or time constraints.
+ */
+
 class Todo extends Task {
+
     public Todo(String description) {
         super(description);
     }

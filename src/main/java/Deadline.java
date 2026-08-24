@@ -1,13 +1,17 @@
-// Deadline class: tasks that need to be done before a specific date/time
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
-class Deadline extends Task {
-    protected LocalDate by;
-    private static final DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+/**
+ * Represents a task that must be completed by a specific deadline date.
+ */
 
-    public Deadline(String description, String by) throws DateTimeParseException{
+class Deadline extends Task {
+
+    private static final DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+    protected LocalDate by;
+
+    public Deadline(String description, String by) throws DateTimeParseException {
         super(description);
         String trimmedBy = by.trim();
         try {

@@ -1,12 +1,16 @@
-// Event class: tasks that start at a specific date/time and end at a specific date/time
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
+/**
+ * Represents a task that happens during a specific start and end date period.
+ */
+
 class Event extends Task {
+
+    private static final DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofPattern("dd/MM/yyyy");
     protected LocalDate from;
     protected LocalDate to;
-    private static final DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
     public Event(String description, String from, String to) throws DateTimeParseException {
         super(description);
@@ -34,7 +38,8 @@ class Event extends Task {
     public String toString() {
         String formattedFrom = this.from.format(DATE_FORMATTER);
         String formattedTo = this.to.format(DATE_FORMATTER);
-        return "[E] [" + getStatusIcon() + "] " + this.description + "(from: " + formattedFrom + " to: " + formattedTo + ")";
+        return "[E] [" + getStatusIcon() + "] " + this.description + " (from: " + formattedFrom + " to: " + formattedTo
+                + ")";
     }
 
     @Override
