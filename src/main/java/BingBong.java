@@ -1,11 +1,13 @@
 import java.util.Scanner;
 import java.util.ArrayList;
 import java.io.File;
+import java.time.LocalDate;
+
 
 public class BingBong {
 
     private enum CommandType {
-        LIST, MARK, UNMARK, TODO, DEADLINE, EVENT, DELETE, BYE, UNKNOWN
+        LIST, MARK, UNMARK, TODO, DEADLINE, EVENT, DELETE, DATES, BYE, UNKNOWN
     }
 
     public static CommandType getCommandType(String in) {
@@ -157,6 +159,29 @@ public class BingBong {
 
                     storage.save(tasks);
 
+                } else if (type == CommandType.DATES) {
+                      if (input.length() <= 6 || input.substring(5).trim().isEmpty()) {
+                          throw new BingBongException("BingBong only recognises 'DD/MM/YYYY'!");
+                      }
+                      try {
+                          LocalDate queryDate = LocalDate.parse(input.substring(6).trim(), java.time.format.DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+                          System.out.println("BingBong search results for " +input.substring(6).trim() + ":");
+                          boolean hasMatches = false;
+                          for (int i = 0; i < tasks.size(); i++) {
+                              Task task = tasks.get(i);
+                              boolean isMatch = (task instanceof Deadline && ((Deadline)task).getDueDate().equals(queryDate)
+                                      || (task instanceof Event && ((Event) task).isOccuringOn(queryDate)));
+                              if (isMatch) {
+                                  System.out.println(" -" + task);
+                                  hasMatches = true;
+                              }
+                          }
+                          if (!hasMatches) {
+                              System.out.println("BingBong does not find any task on this date!");
+                          }
+                      } catch (java.time.format.DateTimeParseException e) {
+                          throw new BingBongException("BingBong only recognises 'DD/MM/YYYY'!");
+                      }
                 } else {
                     throw new BingBongException("BingBong does not know what that means... :(");
                 }

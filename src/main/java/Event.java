@@ -26,6 +26,10 @@ class Event extends Task {
         }
     }
 
+    public boolean isOccuringOn(LocalDate target) {
+        return (!target.isBefore(this.from) && !target.isAfter(this.to));
+    }
+
     @Override
     public String toString() {
         String formattedFrom = this.from.format(DATE_FORMATTER);
