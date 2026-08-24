@@ -1,4 +1,8 @@
-// Abstract Task class
+/**
+ * Represents a generic task.
+ * It stores the main description and tracks if the task is done or not done.
+ */
+
 public abstract class Task {
     protected String description;
     protected boolean isDone;

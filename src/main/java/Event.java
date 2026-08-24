@@ -1,7 +1,10 @@
-// Event class: tasks that start at a specific date/time and end at a specific date/time
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+
+/**
+ * Represents a task that happens during a specific start and end date period.
+ */
 
 class Event extends Task {
     protected LocalDate from;

@@ -1,7 +1,10 @@
-// Deadline class: tasks that need to be done before a specific date/time
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+
+/**
+ * Represents a task that must be completed by a specific deadline date.
+ */
 
 class Deadline extends Task {
     protected LocalDate by;
