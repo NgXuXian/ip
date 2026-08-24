@@ -1,11 +1,13 @@
 import java.util.Scanner;
 import java.util.ArrayList;
 import java.io.File;
+import java.time.LocalDate;
+
 
 public class BingBong {
 
     private enum CommandType {
-        LIST, MARK, UNMARK, TODO, DEADLINE, EVENT, DELETE, BYE, UNKNOWN
+        LIST, MARK, UNMARK, TODO, DEADLINE, EVENT, DELETE, DATES, BYE, UNKNOWN
     }
 
     public static CommandType getCommandType(String in) {
@@ -107,11 +109,15 @@ public class BingBong {
                     if (desc.isEmpty() || by.isEmpty()) {
                         throw new BingBongException("Missing fields. BingBong needs the deadline description and target time of the deadline. :(");
                     }
-                    tasks.add(new Deadline(desc, by));
-                    System.out.println("BingBong added this task to the list(" + tasks.size() + " task(s) total): ");
-                    System.out.println(tasks.get(tasks.size() - 1).toString());
 
-                    storage.save(tasks);
+                    try {
+                        tasks.add(new Deadline(desc, by));
+                        System.out.println("BingBong added this task to the list(" + tasks.size() + " task(s) total): ");
+                        System.out.println(tasks.get(tasks.size() - 1).toString());
+                        storage.save(tasks);
+                    } catch (java.time.format.DateTimeParseException e) {
+                        throw new BingBongException("BingBong only recognises 'DD/MM/YYYY'!");
+                    }
 
                 } else if (type == CommandType.EVENT) {
                     if (input.length() <= 6 || input.substring(5).trim().isEmpty()) {
@@ -129,11 +135,15 @@ public class BingBong {
                     if (desc.isEmpty() || from.isEmpty() || to.isEmpty()) {
                         throw new BingBongException("Missing fields. BingBong needs the event description, start and end parameters.");
                     }
-                    tasks.add(new Event(desc, from, to));
-                    System.out.println("BingBong added this task to the list(" + tasks.size() + " task(s) total): ");
-                    System.out.println(tasks.get(tasks.size() - 1).toString());
 
-                    storage.save(tasks);
+                    try {
+                        tasks.add(new Event(desc, from, to));
+                        System.out.println("BingBong added this task to the list(" + tasks.size() + " task(s) total): ");
+                        System.out.println(tasks.get(tasks.size() - 1).toString());
+                        storage.save(tasks);
+                    } catch (java.time.format.DateTimeParseException e) {
+                        throw new BingBongException("BingBong only recognises 'DD/MM/YYYY'!");
+                    }
 
                 } else if (type == CommandType.DELETE) {
                     if (input.length() <= 7) {
@@ -149,6 +159,29 @@ public class BingBong {
 
                     storage.save(tasks);
 
+                } else if (type == CommandType.DATES) {
+                      if (input.length() <= 6 || input.substring(5).trim().isEmpty()) {
+                          throw new BingBongException("BingBong only recognises 'DD/MM/YYYY'!");
+                      }
+                      try {
+                          LocalDate queryDate = LocalDate.parse(input.substring(6).trim(), java.time.format.DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+                          System.out.println("BingBong search results for " +input.substring(6).trim() + ":");
+                          boolean hasMatches = false;
+                          for (int i = 0; i < tasks.size(); i++) {
+                              Task task = tasks.get(i);
+                              boolean isMatch = (task instanceof Deadline && ((Deadline)task).getDueDate().equals(queryDate)
+                                      || (task instanceof Event && ((Event) task).isOccuringOn(queryDate)));
+                              if (isMatch) {
+                                  System.out.println(" -" + task);
+                                  hasMatches = true;
+                              }
+                          }
+                          if (!hasMatches) {
+                              System.out.println("BingBong does not find any task on this date!");
+                          }
+                      } catch (java.time.format.DateTimeParseException e) {
+                          throw new BingBongException("BingBong only recognises 'DD/MM/YYYY'!");
+                      }
                 } else {
                     throw new BingBongException("BingBong does not know what that means... :(");
                 }
