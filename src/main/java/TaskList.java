@@ -1,11 +1,11 @@
 import java.util.ArrayList;
 
 /**
- * Keeps track of current list of tasks in memory.
- * It handles adding, deleting, and counting the tasks in the list.
+ * Keeps track of current list of tasks in memory. It handles adding, deleting, and counting the tasks in the list.
  */
 
 public class TaskList {
+
     private final ArrayList<Task> tasks;
 
     public TaskList() {

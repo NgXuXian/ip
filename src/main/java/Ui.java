@@ -1,13 +1,14 @@
 import java.util.Scanner;
 
 /**
- * Handles reading inputs from the user and printing text messages on the screen.
- * It is responsible for everything the user sees.
+ * Handles reading inputs from the user and printing text messages on the screen. It is responsible for everything the
+ * user sees.
  */
 
 public class Ui {
-    private final Scanner scanner = new Scanner(System.in);
+
     private static final String H_LINE = "____________________________________________________________";
+    private final Scanner scanner = new Scanner(System.in);
 
     public void showWelcome() {
         String banner = " ___  _             ___                 \n"

@@ -1,15 +1,15 @@
-import java.util.ArrayList;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 /**
- * Handles reading from and writing to the hard disk save file.
- * It keeps tasks safe even after closing the program.
+ * Handles reading from and writing to the hard disk save file. It keeps tasks safe even after closing the program.
  */
 
 public class Storage {
+
     private final File file;
 
     public Storage(String filePath) {

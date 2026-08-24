@@ -7,10 +7,11 @@ import java.time.format.DateTimeParseException;
  */
 
 class Deadline extends Task {
-    protected LocalDate by;
-    private static final DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
-    public Deadline(String description, String by) throws DateTimeParseException{
+    private static final DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+    protected LocalDate by;
+
+    public Deadline(String description, String by) throws DateTimeParseException {
         super(description);
         String trimmedBy = by.trim();
         try {
