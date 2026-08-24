@@ -1,5 +1,13 @@
+package bingbong.command;
+
+import bingbong.exception.BingBongException;
+import bingbong.parser.Parser;
+import bingbong.storage.Storage;
+import bingbong.task.TaskList;
+import bingbong.ui.Ui;
+
 /**
- * Command to unmark a specific task as incomplete.
+ * bingbong.command.Command to unmark a specific task as incomplete.
  */
 
 public class UnmarkCommand extends Command {
@@ -12,6 +20,10 @@ public class UnmarkCommand extends Command {
 
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws BingBongException {
+        if (in.trim().length() <= 6) {
+            throw new BingBongException("Please specify a valid task number to mark! :(");
+        }
+
         int taskIndex = Parser.parseIndex(in, 7);
         if (taskIndex < 0 || taskIndex >= tasks.size()) {
             throw new BingBongException("That task slot does not exist in your list! :(");

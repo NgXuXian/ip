@@ -1,8 +1,16 @@
+package bingbong.storage;
+
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
+
+import bingbong.task.Deadline;
+import bingbong.task.Event;
+import bingbong.task.Task;
+import bingbong.task.TaskList;
+import bingbong.task.Todo;
 
 /**
  * Handles reading from and writing to the hard disk save file. It keeps tasks safe even after closing the program.

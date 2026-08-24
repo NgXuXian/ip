@@ -1,9 +1,18 @@
-import java.io.IOException;
+package bingbong.command;
+
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 
+import bingbong.exception.BingBongException;
+import bingbong.storage.Storage;
+import bingbong.task.Deadline;
+import bingbong.task.Event;
+import bingbong.task.Task;
+import bingbong.task.TaskList;
+import bingbong.ui.Ui;
+
 /**
- * Command to query tasks occurring on a specific date.
+ * bingbong.command.Command to query tasks occurring on a specific date.
  */
 
 public class DatesCommand extends Command {

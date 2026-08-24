@@ -1,5 +1,12 @@
 import java.io.File;
 
+import bingbong.command.Command;
+import bingbong.exception.BingBongException;
+import bingbong.parser.Parser;
+import bingbong.storage.Storage;
+import bingbong.task.TaskList;
+import bingbong.ui.Ui;
+
 /**
  * Main class that controls the chatbot. It connects the UI, storage, and task list together to run the program.
  */

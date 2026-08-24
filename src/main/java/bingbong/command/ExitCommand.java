@@ -1,5 +1,11 @@
+package bingbong.command;
+
+import bingbong.storage.Storage;
+import bingbong.task.TaskList;
+import bingbong.ui.Ui;
+
 /**
- * Command to handle terminating the chatbot application.
+ * bingbong.command.Command to handle terminating the chatbot application.
  */
 
 public class ExitCommand extends Command {

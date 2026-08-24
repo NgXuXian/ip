@@ -1,5 +1,11 @@
+package bingbong.command;
+
+import bingbong.storage.Storage;
+import bingbong.task.TaskList;
+import bingbong.ui.Ui;
+
 /**
- * Command to display all tasks in the list to the user.
+ * bingbong.command.Command to display all tasks in the list to the user.
  */
 
 public class ListCommand extends Command {

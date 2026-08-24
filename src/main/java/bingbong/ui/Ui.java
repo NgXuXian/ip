@@ -1,3 +1,5 @@
+package bingbong.ui;
+
 import java.util.Scanner;
 
 /**

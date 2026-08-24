@@ -1,3 +1,5 @@
+package bingbong.task;
+
 /**
  * Represents a generic task. It stores the main description and tracks if the task is done or not done.
  */

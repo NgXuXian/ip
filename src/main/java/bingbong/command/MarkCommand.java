@@ -1,5 +1,13 @@
+package bingbong.command;
+
+import bingbong.exception.BingBongException;
+import bingbong.parser.Parser;
+import bingbong.storage.Storage;
+import bingbong.task.TaskList;
+import bingbong.ui.Ui;
+
 /**
- * Command to mark a specific task as completed.
+ * bingbong.command.Command to mark a specific task as completed.
  */
 
 public class MarkCommand extends Command {
@@ -12,6 +20,10 @@ public class MarkCommand extends Command {
 
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws BingBongException {
+        if (in.trim().length() <= 4) {
+            throw new BingBongException("Please specify a valid task number to mark! :(");
+        }
+
         int taskIndex = Parser.parseIndex(in, 5);
         if (taskIndex < 0 || taskIndex >= tasks.size()) {
             throw new BingBongException("That task slot does not exist in your list! :(");

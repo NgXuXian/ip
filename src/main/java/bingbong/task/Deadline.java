@@ -1,3 +1,5 @@
+package bingbong.task;
+
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
@@ -6,7 +8,7 @@ import java.time.format.DateTimeParseException;
  * Represents a task that must be completed by a specific deadline date.
  */
 
-class Deadline extends Task {
+public class Deadline extends Task {
 
     private static final DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofPattern("dd/MM/yyyy");
     protected LocalDate by;
