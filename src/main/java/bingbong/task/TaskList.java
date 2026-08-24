@@ -1,3 +1,5 @@
+package bingbong.task;
+
 import java.util.ArrayList;
 
 /**

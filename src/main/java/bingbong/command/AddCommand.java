@@ -1,7 +1,19 @@
+package bingbong.command;
+
 import java.time.format.DateTimeParseException;
 
+import bingbong.exception.BingBongException;
+import bingbong.parser.Parser;
+import bingbong.storage.Storage;
+import bingbong.task.Deadline;
+import bingbong.task.Event;
+import bingbong.task.Task;
+import bingbong.task.TaskList;
+import bingbong.task.Todo;
+import bingbong.ui.Ui;
+
 /**
- * Command to handle creating and adding Todo, Deadline, or Event tasks to the list.
+ * bingbong.command.Command to handle creating and adding Todo, Deadline, or bingbong.task.Event tasks to the list.
  */
 
 public class AddCommand extends Command {

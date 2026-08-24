@@ -1,5 +1,14 @@
+package bingbong.command;
+
+import bingbong.exception.BingBongException;
+import bingbong.parser.Parser;
+import bingbong.storage.Storage;
+import bingbong.task.Task;
+import bingbong.task.TaskList;
+import bingbong.ui.Ui;
+
 /**
- * Command to remove a task from the list.
+ * bingbong.command.Command to remove a task from the list.
  */
 
 public class DeleteCommand extends Command {
@@ -12,6 +21,10 @@ public class DeleteCommand extends Command {
 
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws BingBongException {
+        if (in.trim().length() <= 6) {
+            throw new BingBongException("Please specify a valid task number to delete! :(");
+        }
+
         int taskIndex = Parser.parseIndex(in, 7);
         if (taskIndex < 0 || taskIndex >= tasks.size()) {
             throw new BingBongException("That task slot does not exist in your list! :(");

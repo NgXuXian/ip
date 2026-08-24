@@ -1,14 +1,21 @@
+package bingbong.parser;
+
+import bingbong.command.AddCommand;
+import bingbong.command.Command;
+import bingbong.command.DatesCommand;
+import bingbong.command.DeleteCommand;
+import bingbong.command.ExitCommand;
+import bingbong.command.ListCommand;
+import bingbong.command.MarkCommand;
+import bingbong.command.UnmarkCommand;
+import bingbong.exception.BingBongException;
+
 /**
  * Reads user inputs and decides what command the user wants to execute. It splits the text to understand the command
  * word and its arguments.
  */
 
 public class Parser {
-
-    // Defines all valid command keywords recognised by BingBong
-    public enum CommandType {
-        LIST, MARK, UNMARK, TODO, DEADLINE, EVENT, DELETE, DATES, BYE, UNKNOWN
-    }
 
     public static Command parse(String fullCommand) throws BingBongException {
         CommandType type = getCommandType(fullCommand);
@@ -37,7 +44,6 @@ public class Parser {
         }
     }
 
-
     public static CommandType getCommandType(String in) {
         String commandWord = in.split(" ", 2)[0];
         try {
@@ -52,7 +58,7 @@ public class Parser {
         return Integer.parseInt(in.substring(prefixLength).trim()) - 1;
     }
 
-    // Splits Deadline inputs into [description, byDate]
+    // Splits bingbong.task.Deadline inputs into [description, byDate]
     public static String[] parseDeadline(String in) throws BingBongException {
         if (in.length() <= 9 || in.substring(8).trim().isEmpty()) {
             throw new BingBongException("The description of a deadline cannot be blank. :(");
@@ -71,7 +77,7 @@ public class Parser {
         return new String[]{desc, by};
     }
 
-    // Splits Event input into [description, fromDate, toDate]
+    // Splits bingbong.task.Event input into [description, fromDate, toDate]
     public static String[] parseEvent(String in) throws BingBongException {
         if (in.length() <= 6 || in.substring(5).trim().isEmpty()) {
             throw new BingBongException("The description of an event cannot be blank. :(");
@@ -90,6 +96,11 @@ public class Parser {
                     "Missing fields. BingBong needs the event description, start and end parameters.");
         }
         return new String[]{desc, from, to};
+    }
+
+    // Defines all valid command keywords recognised by BingBong
+    public enum CommandType {
+        LIST, MARK, UNMARK, TODO, DEADLINE, EVENT, DELETE, DATES, BYE, UNKNOWN
     }
 
 
