@@ -48,9 +48,10 @@ jar {
 }
 
 shadowJar {
-    archiveFileName = 'duke.jar'
+    archiveFileName = 'bingbong.jar'
 }
 
 run {
     standardInput = System.in
 }
+
