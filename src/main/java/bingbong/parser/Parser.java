@@ -5,6 +5,7 @@ import bingbong.command.Command;
 import bingbong.command.DatesCommand;
 import bingbong.command.DeleteCommand;
 import bingbong.command.ExitCommand;
+import bingbong.command.FindCommand;
 import bingbong.command.ListCommand;
 import bingbong.command.MarkCommand;
 import bingbong.command.UnmarkCommand;
@@ -39,6 +40,8 @@ public class Parser {
                 return new DeleteCommand(fullCommand);
             case DATES:
                 return new DatesCommand(fullCommand);
+            case FIND:
+                return new FindCommand(fullCommand);
             default:
                 throw new BingBongException("BingBong does not know what that means... :(");
         }
@@ -100,7 +103,7 @@ public class Parser {
 
     // Defines all valid command keywords recognised by BingBong
     public enum CommandType {
-        LIST, MARK, UNMARK, TODO, DEADLINE, EVENT, DELETE, DATES, BYE, UNKNOWN
+        LIST, MARK, UNMARK, TODO, DEADLINE, EVENT, DELETE, DATES, FIND, BYE, UNKNOWN
     }
 
 

@@ -14,6 +14,15 @@ public abstract class Task {
         this.isDone = false;
     }
 
+    /**
+     * Returns the text description of the task.
+     *
+     * @return The task description string.
+     */
+    public String getDescription() {
+        return this.description;
+    }
+
     public String getStatusIcon() {
         return (isDone ? "X" : " ");
     }
