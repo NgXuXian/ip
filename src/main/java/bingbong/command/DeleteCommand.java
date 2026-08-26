@@ -10,15 +10,27 @@ import bingbong.ui.Ui;
 /**
  * bingbong.command.Command to remove a task from the list.
  */
-
 public class DeleteCommand extends Command {
 
     private final String in;
 
+    /**
+     * Initialises a delete command object.
+     *
+     * @param in The command line user input.
+     */
     public DeleteCommand(String in) {
         this.in = in;
     }
 
+    /**
+     * extracts targeted indexing pointers, clears entries out, updates users, and writes to files.
+     *
+     * @param tasks The active TaskList tracking current items.
+     * @param ui The user interface formatting output blocks.
+     * @param storage The storage file handler managing disk reads and writes.
+     * @throws BingBongException If user bounds evaluation checks fail or numeric arguments are missing.
+     */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws BingBongException {
         if (in.trim().length() <= 6) {

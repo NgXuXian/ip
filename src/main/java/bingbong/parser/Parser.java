@@ -14,9 +14,15 @@ import bingbong.exception.BingBongException;
  * Reads user inputs and decides what command the user wants to execute. It splits the text to understand the command
  * word and its arguments.
  */
-
 public class Parser {
 
+    /**
+     * Translates a command line into an executable command instance.
+     *
+     * @param fullCommand The unparsed text input entered by the user.
+     * @return A concrete executable Command object matching the instruction word.
+     * @throws BingBongException If the string is invalid or the command is not recognised.
+     */
     public static Command parse(String fullCommand) throws BingBongException {
         CommandType type = getCommandType(fullCommand);
 
@@ -44,6 +50,12 @@ public class Parser {
         }
     }
 
+    /**
+     * Extracts the primary action keyword from an input string to determine its command type.
+     *
+     * @param in The raw input line string to evaluate.
+     * @return The corresponding CommandType enum value, or UNKNOWN if invalid.
+     */
     public static CommandType getCommandType(String in) {
         String commandWord = in.split(" ", 2)[0];
         try {
@@ -53,12 +65,25 @@ public class Parser {
         }
     }
 
-    // Extracts target index from mark, unmark and delete
+    /**
+     * Extracts a task list index number from a parameter argument substring.
+     *
+     * @param in           The full raw input argument string.
+     * @param prefixLength The length of the command word prefix string to chop off.
+     * @return A 0-indexed integer pointer referencing a targeted task slot position.
+     * @throws NumberFormatException If the remaining string parameter cannot parse into an integer.
+     */
     public static int parseIndex(String in, int prefixLength) throws NumberFormatException {
         return Integer.parseInt(in.substring(prefixLength).trim()) - 1;
     }
 
-    // Splits bingbong.task.Deadline inputs into [description, byDate]
+    /**
+     * Splits a deadline command string line into its description and target date components.
+     *
+     * @param in The full deadline command string line.
+     * @return A String array containing exactly two elements: [description, byDate].
+     * @throws BingBongException If descriptions are empty or the '/by' target timing keyword is missing.
+     */
     public static String[] parseDeadline(String in) throws BingBongException {
         if (in.length() <= 9 || in.substring(8).trim().isEmpty()) {
             throw new BingBongException("The description of a deadline cannot be blank. :(");
@@ -77,7 +102,13 @@ public class Parser {
         return new String[]{desc, by};
     }
 
-    // Splits bingbong.task.Event input into [description, fromDate, toDate]
+    /**
+     * Splits a event command string line into description, start date, and end date components.
+     *
+     * @param in The full event command string line.
+     * @return A String array containing exactly three elements: [description, fromDate, toDate].
+     * @throws BingBongException If fields are empty or the formatting time constraints are missing.
+     */
     public static String[] parseEvent(String in) throws BingBongException {
         if (in.length() <= 6 || in.substring(5).trim().isEmpty()) {
             throw new BingBongException("The description of an event cannot be blank. :(");
@@ -98,7 +129,9 @@ public class Parser {
         return new String[]{desc, from, to};
     }
 
-    // Defines all valid command keywords recognised by BingBong
+    /**
+     * Defines all valid command keywords.
+     */
     public enum CommandType {
         LIST, MARK, UNMARK, TODO, DEADLINE, EVENT, DELETE, DATES, BYE, UNKNOWN
     }

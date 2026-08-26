@@ -14,11 +14,15 @@ import bingbong.ui.Ui;
 /**
  * bingbong.command.Command to query tasks occurring on a specific date.
  */
-
 public class DatesCommand extends Command {
 
     private final String in;
 
+    /**
+     * Initialises a date-matching query execution command wrapper.
+     *
+     * @param in The command line user input.
+     */
     public DatesCommand(String in) {
         this.in = in;
     }
