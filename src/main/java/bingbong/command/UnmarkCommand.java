@@ -9,7 +9,6 @@ import bingbong.ui.Ui;
 /**
  * bingbong.command.Command to unmark a specific task as incomplete.
  */
-
 public class UnmarkCommand extends Command {
 
     private final String in;
