@@ -15,17 +15,30 @@ import bingbong.ui.Ui;
 /**
  * bingbong.command.Command to handle creating and adding Todo, Deadline, or bingbong.task.Event tasks to the list.
  */
-
 public class AddCommand extends Command {
 
     private final String in;
     private final Parser.CommandType taskType;
 
+    /**
+     * Constructs an operational add command instance.
+     *
+     * @param in The command line user input.
+     * @param taskType The detected signature classification category matching this target.
+     */
     public AddCommand(String in, Parser.CommandType taskType) {
         this.in = in;
         this.taskType = taskType;
     }
 
+    /**
+     * Decodes individual arguments, creates tasks, appends them to lists, and triggers disk writes.
+     *
+     * @param tasks The active TaskList tracking current items.
+     * @param ui The user interface formatting output blocks.
+     * @param storage The storage file handler managing disk reads and writes.
+     * @throws BingBongException If argument structure formats are empty, corrupt, or missing fields.
+     */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws BingBongException {
         Task taskToAdd;

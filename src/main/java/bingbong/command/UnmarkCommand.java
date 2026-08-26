@@ -9,11 +9,15 @@ import bingbong.ui.Ui;
 /**
  * bingbong.command.Command to unmark a specific task as incomplete.
  */
-
 public class UnmarkCommand extends Command {
 
     private final String in;
 
+    /**
+     * Initialises unmark command object targeting incomplete state item.
+     *
+     * @param in The command line user input.
+     */
     public UnmarkCommand(String in) {
         this.in = in;
     }

@@ -9,11 +9,15 @@ import bingbong.ui.Ui;
 /**
  * bingbong.command.Command to mark a specific task as completed.
  */
-
 public class MarkCommand extends Command {
 
     private final String in;
 
+    /**
+     * Initialises mark command object targeting completed state item.
+     *
+     * @param in The command line user input.
+     */
     public MarkCommand(String in) {
         this.in = in;
     }

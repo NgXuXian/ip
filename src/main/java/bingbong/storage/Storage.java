@@ -15,22 +15,30 @@ import bingbong.task.Todo;
 /**
  * Handles reading from and writing to the hard disk save file. It keeps tasks safe even after closing the program.
  */
-
 public class Storage {
 
     private final File file;
 
+    /**
+     * Constructs a Storage manager instance targeting a specific file path configuration.
+     *
+     * @param filePath The relative path location string where data records are read and written.
+     */
     public Storage(String filePath) {
         this.file = new File(filePath);
     }
 
+    /**
+     * serialises the in-memory task records and saves them onto disk storage.
+     * Creates any missing destination parent folder subdirectories automatically.
+     *
+     * @param tasks The active TaskList tracking data records to write to file.
+     */
     public void save(TaskList tasks) {
         try {
-            // Create data or folder if missing
             if (file.getParentFile() != null && !file.getParentFile().exists()) {
                 file.getParentFile().mkdirs();
             }
-            // Overwrite file with current tasks
             FileWriter writer = new FileWriter(file);
             for (int i = 0; i < tasks.size(); i++) {
                 writer.write(tasks.get(i).formatToFile() + System.lineSeparator());
@@ -41,6 +49,12 @@ public class Storage {
         }
     }
 
+    /**
+     * Reads saved text record logs from the hard disk and unpacks them into objects.
+     * Skips over corrupted rows or unparseable task strings.
+     *
+     * @return A collection list array of unpacked material tasks initialized from disk logs.
+     */
     public ArrayList<Task> load() {
         ArrayList<Task> tasks = new ArrayList<>();
         if (!file.exists()) {

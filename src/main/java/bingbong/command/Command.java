@@ -12,8 +12,21 @@ import bingbong.ui.Ui;
 
 public abstract class Command {
 
+    /**
+     * Executes the specific behavior defined by the underlying command implementation.
+     *
+     * @param tasks The active TaskList tracking current items.
+     * @param ui The user interface formatting output blocks.
+     * @param storage The storage file handler managing disk reads and writes.
+     * @throws BingBongException If processing limits or validation boundaries are breached.
+     */
     public abstract void execute(TaskList tasks, Ui ui, Storage storage) throws BingBongException;
 
+    /**
+     * Determines whether the current command signals the application runtime loop to exit.
+     *
+     * @return True if execution loop must terminate, false otherwise.
+     */
     public boolean isExit() {
         return false;
     }
