@@ -23,7 +23,15 @@ public abstract class Task {
      * Generates a status icon character based on completion state.
      *
      * @return "X" if the tracking state evaluates as done, otherwise a blank space " ".
+     *
+     * Returns the text description of the task.
+     *
+     * @return The task description string.
      */
+    public String getDescription() {
+        return this.description;
+    }
+
     public String getStatusIcon() {
         return (isDone ? "X" : " ");
     }
