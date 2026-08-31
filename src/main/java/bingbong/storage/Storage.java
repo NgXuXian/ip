@@ -29,8 +29,8 @@ public class Storage {
     }
 
     /**
-     * serialises the in-memory task records and saves them onto disk storage.
-     * Creates any missing destination parent folder subdirectories automatically.
+     * serialises the in-memory task records and saves them onto disk storage. Creates any missing destination parent
+     * folder subdirectories automatically.
      *
      * @param tasks The active TaskList tracking data records to write to file.
      */
@@ -50,8 +50,8 @@ public class Storage {
     }
 
     /**
-     * Reads saved text record logs from the hard disk and unpacks them into objects.
-     * Skips over corrupted rows or unparseable task strings.
+     * Reads saved text record logs from the hard disk and unpacks them into objects. Skips over corrupted rows or
+     * unparseable task strings.
      *
      * @return A collection list array of unpacked material tasks initialized from disk logs.
      */

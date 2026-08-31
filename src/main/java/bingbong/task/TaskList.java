@@ -54,8 +54,7 @@ public class TaskList {
     }
 
     /**
-     * Removes a target object task entity.
-     * Shifts any remaining array blocks forward automatically.
+     * Removes a target object task entity. Shifts any remaining array blocks forward automatically.
      *
      * @param index The index of item to remove.
      * @return The Task object reference that was deleted out of memory.

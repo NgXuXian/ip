@@ -12,8 +12,8 @@ public class ListCommand extends Command {
     /**
      * Loops across active collections to display individual items to users.
      *
-     * @param tasks The active TaskList tracking current items.
-     * @param ui The user interface formatting output blocks.
+     * @param tasks   The active TaskList tracking current items.
+     * @param ui      The user interface formatting output blocks.
      * @param storage The storage file handler managing disk reads and writes.
      */
     @Override

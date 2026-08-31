@@ -26,8 +26,8 @@ public class DeleteCommand extends Command {
     /**
      * extracts targeted indexing pointers, clears entries out, updates users, and writes to files.
      *
-     * @param tasks The active TaskList tracking current items.
-     * @param ui The user interface formatting output blocks.
+     * @param tasks   The active TaskList tracking current items.
+     * @param ui      The user interface formatting output blocks.
      * @param storage The storage file handler managing disk reads and writes.
      * @throws BingBongException If user bounds evaluation checks fail or numeric arguments are missing.
      */

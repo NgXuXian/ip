@@ -23,7 +23,7 @@ public class AddCommand extends Command {
     /**
      * Constructs an operational add command instance.
      *
-     * @param in The command line user input.
+     * @param in       The command line user input.
      * @param taskType The detected signature classification category matching this target.
      */
     public AddCommand(String in, Parser.CommandType taskType) {
@@ -34,8 +34,8 @@ public class AddCommand extends Command {
     /**
      * Decodes individual arguments, creates tasks, appends them to lists, and triggers disk writes.
      *
-     * @param tasks The active TaskList tracking current items.
-     * @param ui The user interface formatting output blocks.
+     * @param tasks   The active TaskList tracking current items.
+     * @param ui      The user interface formatting output blocks.
      * @param storage The storage file handler managing disk reads and writes.
      * @throws BingBongException If argument structure formats are empty, corrupt, or missing fields.
      */

@@ -12,8 +12,8 @@ public class ExitCommand extends Command {
     /**
      * Prints exit strings.
      *
-     * @param tasks The active TaskList tracking current items.
-     * @param ui The user interface formatting output blocks.
+     * @param tasks   The active TaskList tracking current items.
+     * @param ui      The user interface formatting output blocks.
      * @param storage The storage file handler managing disk reads and writes.
      */
     @Override

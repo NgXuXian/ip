@@ -1,0 +1,64 @@
+/* Background scroll container */
+.scroll-pane {
+    -fx-background-color: #F4F6F6;
+    -fx-background-inline: #F4F6F6;
+}
+.scroll-pane .viewport {
+    -fx-background-color: #F4F6F6;
+}
+
+/* Chat boxes layout spacing controls */
+.dialog-box {
+    -fx-padding: 12px;
+    -fx-spacing: 12px;
+}
+
+/* User speech bubble styling layout */
+.user-label {
+    -fx-background-color: #3498DB;
+    -fx-background-radius: 18px 18px 2px 18px;
+    -fx-padding: 10px 16px 10px 16px;
+    -fx-text-fill: #FFFFFF;
+    -fx-font-family: "Segoe UI", Arial, sans-serif;
+    -fx-font-size: 13px;
+    -fx-font-weight: 500;
+    -fx-effect: dropshadow(one-pass-box, rgba(0,0,0,0.08), 4, 0, 0, 1);
+}
+
+/* Chatbot response bubble styling layout */
+.chatbot-label {
+    -fx-background-color: #FFFFFF;
+    -fx-background-radius: 18px 18px 18px 2px;
+    -fx-padding: 10px 16px 10px 16px;
+    -fx-text-fill: #2C3E50;
+    -fx-font-family: "Segoe UI", Arial, sans-serif;
+    -fx-font-size: 13px;
+    -fx-effect: dropshadow(one-pass-box, rgba(0,0,0,0.06), 6, 0, 0, 2);
+}
+
+/* Layout for the Text Entry Box */
+.text-field {
+    -fx-background-color: #FFFFFF;
+    -fx-background-radius: 20px;
+    -fx-border-color: #BDC3C7;
+    -fx-border-radius: 20px;
+    -fx-padding: 8px 14px 8px 14px;
+    -fx-font-family: "Segoe UI";
+    -fx-font-size: 13px;
+}
+.text-field:focused {
+    -fx-border-color: #3498DB;
+}
+
+/* Layout for the Send Button */
+.button {
+    -fx-background-color: #2ECC71;
+    -fx-background-radius: 20px;
+    -fx-text-fill: #FFFFFF;
+    -fx-font-family: "Segoe UI";
+    -fx-font-weight: bold;
+    -fx-cursor: hand;
+}
+.button:hover {
+    -fx-background-color: #27AE60;
+}

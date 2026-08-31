@@ -15,8 +15,8 @@ public abstract class Command {
     /**
      * Executes the specific behavior defined by the underlying command implementation.
      *
-     * @param tasks The active TaskList tracking current items.
-     * @param ui The user interface formatting output blocks.
+     * @param tasks   The active TaskList tracking current items.
+     * @param ui      The user interface formatting output blocks.
      * @param storage The storage file handler managing disk reads and writes.
      * @throws BingBongException If processing limits or validation boundaries are breached.
      */
