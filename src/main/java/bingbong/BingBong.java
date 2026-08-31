@@ -25,6 +25,9 @@ public class BingBong {
         new BingBong().run();
     }
 
+    /**
+     * Executes the core operation sequence for the chatbot.
+     */
     public void run() {
         ui.showWelcome();
 

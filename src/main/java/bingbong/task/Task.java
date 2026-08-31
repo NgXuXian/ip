@@ -3,7 +3,6 @@ package bingbong.task;
 /**
  * Represents a generic task. It stores the main description and tracks if the task is done or not done.
  */
-
 public abstract class Task {
 
     protected String description;
@@ -20,10 +19,6 @@ public abstract class Task {
     }
 
     /**
-     * Generates a status icon character based on completion state.
-     *
-     * @return "X" if the tracking state evaluates as done, otherwise a blank space " ".
-     *
      * Returns the text description of the task.
      *
      * @return The task description string.
@@ -32,6 +27,11 @@ public abstract class Task {
         return this.description;
     }
 
+    /**
+     * Generates a status icon character based on completion state.
+     *
+     * @return "X" if the tracking state evaluates as done, otherwise a blank space " ".
+     */
     public String getStatusIcon() {
         return (isDone ? "X" : " ");
     }
