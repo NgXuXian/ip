@@ -2,8 +2,12 @@ package bingbong.parser;
 
 import static org.junit.jupiter.api.Assertions.assertInstanceOf;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+
 import org.junit.jupiter.api.Test;
-import bingbong.command.*;
+
+import bingbong.command.AddCommand;
+import bingbong.command.ExitCommand;
+import bingbong.command.ListCommand;
 import bingbong.exception.BingBongException;
 
 public class ParserTest {

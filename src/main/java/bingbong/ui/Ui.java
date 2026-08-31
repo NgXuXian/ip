@@ -3,15 +3,18 @@ package bingbong.ui;
 import java.util.Scanner;
 
 /**
- * Manages user interface.
- * Formats and prints text output blocks to the standard system console.
+ * Manages user interface. Formats and prints text output blocks to the standard system console.
  */
 public class Ui {
 
-    /** The horizontal dividing boundary separator line printed to the display layout. */
+    /**
+     * The horizontal dividing boundary separator line printed to the display layout.
+     */
     private static final String H_LINE = "____________________________________________________________";
 
-    /** The input channel interface reader instance scanning raw keystroke lines. */
+    /**
+     * The input channel interface reader instance scanning raw keystroke lines.
+     */
     private final Scanner scanner = new Scanner(System.in);
 
     /**
