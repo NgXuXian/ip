@@ -46,13 +46,16 @@ public class Ui {
     }
 
     /**
-     * Prints a text status message line directly onto the system display.
+     * Prints one or more messages sequentially to the output stream.
      *
-     * @param message The target text message string contents to pass out.
+     * @param messages An arbitrary number of string messages to print.
      */
-    public void print(String message) {
-        System.out.println(message);
+    public void print(String... messages) {
+        for (String message : messages) {
+            System.out.println(message);
+        }
     }
+
 
     /**
      * Prints a warning alert indicating historical file log loads failed.
