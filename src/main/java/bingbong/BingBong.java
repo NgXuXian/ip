@@ -89,4 +89,14 @@ public class BingBong {
             return "Please enter a valid number! :(";
         }
     }
+
+    /**
+     * Generates the initial welcome greeting message for the GUI interface.
+     *
+     * @return The standard welcome string sequence.
+     */
+    public String getGreeting() {
+        return "BingBong!\nWhat can I do for you today? :D";
+    }
+
 }

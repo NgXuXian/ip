@@ -74,6 +74,9 @@ public class MainApp extends Application {
         AnchorPane.setBottomAnchor(sendButton, 6.0);
 
         dialogContainer.heightProperty().addListener((observable) -> scrollPane.setVvalue(1.0));
+        dialogContainer.getChildren().add(
+                DialogBox.getBingBongDialog(new Label(bingBong.getGreeting()), new ImageView(bingbongImage))
+        );
 
         stage.show();
 

@@ -55,6 +55,7 @@ public class DialogBox extends HBox {
     public static DialogBox getBingBongDialog(Label l, ImageView iv) {
         var db = new DialogBox(l, iv, "chatbot-label");
         db.flip();
+        iv.setScaleX(-1);
         return db;
     }
 }
