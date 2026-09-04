@@ -66,8 +66,10 @@ public class BingBong {
         StringBuilder outputBuffer = new StringBuilder();
         Ui interceptorUi = new Ui() {
             @Override
-            public void print(String message) {
-                outputBuffer.append(message).append("\n");
+            public void print(String... messages) {
+                for (String message : messages) {
+                    outputBuffer.append(message).append("\n");
+                }
             }
 
             @Override
