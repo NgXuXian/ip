@@ -1,5 +1,9 @@
 package bingbong.command;
 
+import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
+
 import bingbong.exception.BingBongException;
 import bingbong.storage.Storage;
 import bingbong.task.Task;
@@ -39,22 +43,19 @@ public class FindCommand extends Command {
         }
 
         String keyword = in.substring(5).trim();
-        int matchCount = 0;
 
-        for (int i = 0; i < tasks.size(); i++) {
-            Task task = tasks.get(i);
+        List<Task> matchingTasks = IntStream.range(0, tasks.size())
+                .mapToObj(tasks::get)
+                .filter(task -> task.getDescription().contains(keyword))
+                .collect(Collectors.toList());
 
-            if (task.getDescription().contains(keyword)) {
-                if (matchCount == 0) {
-                    ui.print("BingBong shows the matching tasks in your list:");
-                }
-                matchCount++;
-                ui.print(matchCount + ". " + task);
-            }
-        }
-
-        if (matchCount == 0) {
+        if (matchingTasks.isEmpty()) {
             ui.print("BingBong found no matching tasks with that keyword!");
+            return;
         }
+
+        ui.print("BingBong shows the matching tasks in your list:");
+        IntStream.range(0, matchingTasks.size())
+                .forEach(i -> ui.print((i + 1) + ". " + matchingTasks.get(i)));
     }
 }
