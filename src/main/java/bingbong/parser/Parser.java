@@ -16,6 +16,16 @@ import bingbong.exception.BingBongException;
  * word and its arguments.
  */
 public class Parser {
+    private static final String SPACE_DELIMITER = " ";
+    private static final String DEADLINE_DELIMITER = " /by ";
+    private static final String EVENT_FROM_DELIMITER = " /from ";
+    private static final String EVENT_TO_DELIMITER = " /to ";
+
+    private static final int DEADLINE_PREFIX_LENGTH = 9;
+    private static final int EVENT_PREFIX_LENGTH = 6;
+
+    private static final int MAXIMUM_SPLIT_PARTS = 2;
+    private static final int FIRST_ARRAY_INDEX = 0;
 
     /**
      * Translates a command line into an executable command instance.
@@ -60,7 +70,7 @@ public class Parser {
      * @return The corresponding CommandType enum value, or UNKNOWN if invalid.
      */
     public static CommandType getCommandType(String in) {
-        String commandWord = in.split(" ", 2)[0];
+        String commandWord = in.split(SPACE_DELIMITER, MAXIMUM_SPLIT_PARTS)[FIRST_ARRAY_INDEX];
         try {
             return CommandType.valueOf(commandWord.toUpperCase());
         } catch (IllegalArgumentException e) {
@@ -88,16 +98,16 @@ public class Parser {
      * @throws BingBongException If descriptions are empty or the '/by' target timing keyword is missing.
      */
     public static String[] parseDeadline(String in) throws BingBongException {
-        if (in.length() <= 9 || in.substring(8).trim().isEmpty()) {
+        if (in.length() <= DEADLINE_PREFIX_LENGTH || in.substring(DEADLINE_PREFIX_LENGTH - 1).trim().isEmpty()) {
             throw new BingBongException("The description of a deadline cannot be blank. :(");
         }
-        String content = in.substring(9);
-        int byIndex = content.indexOf(" /by ");
+        String content = in.substring(DEADLINE_PREFIX_LENGTH);
+        int byIndex = content.indexOf(DEADLINE_DELIMITER);
         if (byIndex == -1) {
             throw new BingBongException("A deadline must include a target timing using '/by'.");
         }
-        String desc = content.substring(0, byIndex).trim();
-        String by = content.substring(byIndex + 4).trim();
+        String desc = content.substring(FIRST_ARRAY_INDEX, byIndex).trim();
+        String by = content.substring(byIndex + DEADLINE_DELIMITER.length()).trim();
         if (desc.isEmpty() || by.isEmpty()) {
             throw new BingBongException(
                     "Missing fields. BingBong needs the deadline description and target time of the deadline. :(");
@@ -113,18 +123,18 @@ public class Parser {
      * @throws BingBongException If fields are empty or the formatting time constraints are missing.
      */
     public static String[] parseEvent(String in) throws BingBongException {
-        if (in.length() <= 6 || in.substring(5).trim().isEmpty()) {
+        if (in.length() <= EVENT_PREFIX_LENGTH || in.substring(EVENT_PREFIX_LENGTH - 1).trim().isEmpty()) {
             throw new BingBongException("The description of an event cannot be blank. :(");
         }
-        String content = in.substring(6);
-        int fromIndex = content.indexOf(" /from ");
-        int toIndex = content.indexOf(" /to ");
+        String content = in.substring(EVENT_PREFIX_LENGTH);
+        int fromIndex = content.indexOf(EVENT_FROM_DELIMITER);
+        int toIndex = content.indexOf(EVENT_TO_DELIMITER);
         if (fromIndex == -1 || toIndex == -1 || fromIndex > toIndex) {
             throw new BingBongException("An event requires valid time constraints using '/from' and '/to'.");
         }
-        String desc = content.substring(0, fromIndex).trim();
-        String from = content.substring(fromIndex + 6, toIndex).trim();
-        String to = content.substring(toIndex + 4).trim();
+        String desc = content.substring(FIRST_ARRAY_INDEX, fromIndex).trim();
+        String from = content.substring(fromIndex + EVENT_FROM_DELIMITER.length(), toIndex).trim();
+        String to = content.substring(toIndex + EVENT_TO_DELIMITER.length()).trim();
         if (desc.isEmpty() || from.isEmpty() || to.isEmpty()) {
             throw new BingBongException(
                     "Missing fields. BingBong needs the event description, start and end parameters.");
