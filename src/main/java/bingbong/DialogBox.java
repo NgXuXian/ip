@@ -49,10 +49,12 @@ public class DialogBox extends HBox {
     }
 
     public static DialogBox getUserDialog(Label l, ImageView iv) {
+        l.setWrapText(true);
         return new DialogBox(l, iv, "user-label");
     }
 
     public static DialogBox getBingBongDialog(Label l, ImageView iv) {
+        l.setWrapText(true);
         var db = new DialogBox(l, iv, "chatbot-label");
         db.flip();
         iv.setScaleX(-1);
