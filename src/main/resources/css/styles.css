@@ -63,3 +63,24 @@
     -fx-background-color: #404249;
     -fx-text-fill: #FFFFFF;
 }
+
+.error-label {
+    -fx-background-color: #942B2B;
+    -fx-background-radius: 18px 18px 18px 2px;
+    -fx-padding: 10px 16px 10px 16px;
+    -fx-text-fill: #FFD2D2;
+    -fx-font-family: "Segoe UI", Arial, sans-serif;
+    -fx-font-size: 13px;
+    -fx-effect: dropshadow(one-pass-box, rgba(0,0,0,0.25), 6, 0, 0, 2);
+}
+
+.scroll-pane .scroll-bar:vertical {
+    -fx-background-color: #1E1F22;
+}
+.scroll-pane .scroll-bar:vertical .thumb {
+    -fx-background-color: #2B2D31;
+    -fx-background-radius: 4px;
+}
+.scroll-pane .scroll-bar:vertical .thumb:hover {
+    -fx-background-color: #383A40;
+}

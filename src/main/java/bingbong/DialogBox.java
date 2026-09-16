@@ -53,9 +53,10 @@ public class DialogBox extends HBox {
         return new DialogBox(l, iv, "user-label");
     }
 
-    public static DialogBox getBingBongDialog(Label l, ImageView iv) {
+    public static DialogBox getBingBongDialog(Label l, ImageView iv, boolean isError) {
         l.setWrapText(true);
-        var db = new DialogBox(l, iv, "chatbot-label");
+        String styleClass = isError ? "error-label" : "chatbot-label";
+        var db = new DialogBox(l, iv, styleClass);
         db.flip();
         iv.setScaleX(-1);
         return db;

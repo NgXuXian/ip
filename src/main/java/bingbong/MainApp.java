@@ -46,7 +46,7 @@ public class MainApp extends Application {
 
         stage.setScene(scene);
         stage.setTitle("BingBong Chatbot");
-        stage.setResizable(false);
+        stage.setResizable(true);
         stage.setMinHeight(600.0);
         stage.setMinWidth(400.0);
 
@@ -68,6 +68,7 @@ public class MainApp extends Application {
         AnchorPane.setRightAnchor(scrollPane, 1.0);
 
         AnchorPane.setLeftAnchor(userInput, 6.0);
+        AnchorPane.setRightAnchor(userInput, 76.0);
         AnchorPane.setBottomAnchor(userInput, 6.0);
 
         AnchorPane.setRightAnchor(sendButton, 6.0);
@@ -75,7 +76,7 @@ public class MainApp extends Application {
 
         dialogContainer.heightProperty().addListener((observable) -> scrollPane.setVvalue(1.0));
         dialogContainer.getChildren().add(
-                DialogBox.getBingBongDialog(new Label(bingBong.getGreeting()), new ImageView(bingbongImage))
+                DialogBox.getBingBongDialog(new Label(bingBong.getGreeting()), new ImageView(bingbongImage), false)
         );
 
         stage.show();
@@ -91,10 +92,13 @@ public class MainApp extends Application {
         }
 
         String responseText = bingBong.getResponse(inputText);
+        boolean isError = responseText.contains("not know what that means")
+                || responseText.contains("valid number")
+                || responseText.contains("Error");
 
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(new Label(inputText), new ImageView(userImage)),
-                DialogBox.getBingBongDialog(new Label(responseText), new ImageView(bingbongImage))
+                DialogBox.getBingBongDialog(new Label(responseText), new ImageView(bingbongImage), isError)
         );
 
         userInput.clear();
