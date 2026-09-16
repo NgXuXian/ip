@@ -117,7 +117,8 @@ public class Parser {
     /**
      * Helper check to ensure simple argument commands have accurate parameters.
      */
-    private static void validateSingleArgumentCommand(String in, int prefixLength, String name) throws BingBongException {
+    private static void validateSingleArgumentCommand(String in, int prefixLength, String name)
+            throws BingBongException {
         if (in.length() <= prefixLength || in.substring(prefixLength).trim().isEmpty()) {
             throw new BingBongException("The argument parameters for " + name + " cannot be blank.");
         }
