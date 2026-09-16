@@ -98,7 +98,7 @@ public class BingBong {
      * @return The standard welcome string sequence.
      */
     public String getGreeting() {
-        return "BingBong!\nWhat can I do for you today? :D";
+        return "BINGBONG!\nWhat can I do for you today? :D";
     }
 
 }
