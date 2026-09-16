@@ -27,10 +27,10 @@ Below is a look at your main app workspace window panel in action, showing your 
 
 ## Core Feature Command Settings
 
-> [!NOTE]
-> **Notes about command parameters and structure layout variants:**
+> **Note on Command Parameters:**
 > * Words formatted in `UPPER_CASE` represent specific user values you must supply (e.g., in `todo DESCRIPTION`, replace `DESCRIPTION` with a value like `Read SE textbook`).
 > * Timeline components like dates must follow the strict `DD/MM/YYYY` calendar configuration sequence.
+
 
 ### 1. View Your Saved List: `list`
 Displays a comprehensive numbered overview listing of all active tasks stored in your database tracking system.
