@@ -73,12 +73,10 @@ public class BingBong {
             }
 
             @Override
-            public void showWelcome() {
-            }
+            public void showWelcome() {}
 
             @Override
-            public void showHLine() {
-            }
+            public void showHLine() {}
         };
 
         try {
@@ -86,9 +84,9 @@ public class BingBong {
             command.execute(tasks, interceptorUi, storage);
             return outputBuffer.toString().trim();
         } catch (BingBongException e) {
-            return e.getMessage();
+            return "BING BONG! Error: " + e.getMessage();
         } catch (NumberFormatException e) {
-            return "Please enter a valid number! :(";
+            return "BING BONG! Error: Please provide a valid task list number index!";
         }
     }
 

@@ -86,15 +86,14 @@ public class MainApp extends Application {
     }
 
     private void handleUserInput() {
-        String inputText = userInput.getText().trim();
+        String inputText = userInput.getText().trim().replaceAll("\\s+", " ");
         if (inputText.isEmpty()) {
             return;
         }
 
         String responseText = bingBong.getResponse(inputText);
-        boolean isError = responseText.contains("not know what that means")
-                || responseText.contains("valid number")
-                || responseText.contains("Error");
+        boolean isError = responseText.contains("BING BONG! Error:")
+                || responseText.contains("not know what that means");
 
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(new Label(inputText), new ImageView(userImage)),

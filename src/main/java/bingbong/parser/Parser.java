@@ -22,8 +22,14 @@ public class Parser {
     private static final String EVENT_FROM_DELIMITER = " /from ";
     private static final String EVENT_TO_DELIMITER = " /to ";
 
+    private static final int TODO_PREFIX_LENGTH = 5;
     private static final int DEADLINE_PREFIX_LENGTH = 9;
     private static final int EVENT_PREFIX_LENGTH = 6;
+    private static final int MARK_PREFIX_LENGTH = 5;
+    private static final int UNMARK_PREFIX_LENGTH = 7;
+    private static final int DELETE_PREFIX_LENGTH = 7;
+    private static final int FIND_PREFIX_LENGTH = 5;
+    private static final int DATES_PREFIX_LENGTH = 6;
 
     private static final int MAXIMUM_SPLIT_PARTS = 2;
     private static final int FIRST_ARRAY_INDEX = 0;
@@ -44,25 +50,31 @@ public class Parser {
             case LIST:
                 return new ListCommand();
             case MARK:
+                validateSingleArgumentCommand(fullCommand, MARK_PREFIX_LENGTH, "mark");
                 return new MarkCommand(fullCommand);
             case UNMARK:
+                validateSingleArgumentCommand(fullCommand, UNMARK_PREFIX_LENGTH, "unmark");
                 return new UnmarkCommand(fullCommand);
             case TODO:
+                validateTodo(fullCommand);
                 return new AddCommand(fullCommand, CommandType.TODO);
             case DEADLINE:
                 return new AddCommand(fullCommand, CommandType.DEADLINE);
             case EVENT:
                 return new AddCommand(fullCommand, CommandType.EVENT);
             case DELETE:
+                validateSingleArgumentCommand(fullCommand, DELETE_PREFIX_LENGTH, "delete");
                 return new DeleteCommand(fullCommand);
             case DATES:
+                validateSingleArgumentCommand(fullCommand, DATES_PREFIX_LENGTH, "dates");
                 return new DatesCommand(fullCommand);
             case FIND:
+                validateSingleArgumentCommand(fullCommand, FIND_PREFIX_LENGTH, "find");
                 return new FindCommand(fullCommand);
             case HELP:
                 return new HelpCommand();
             default:
-                throw new BingBongException("BingBong does not know what that means... :(");
+                throw new BingBongException("Unknown command. Please try again.");
         }
     }
 
@@ -94,6 +106,24 @@ public class Parser {
     }
 
     /**
+     * Validates that todo commands have descriptive content.
+     */
+    private static void validateTodo(String in) throws BingBongException {
+        if (in.length() <= TODO_PREFIX_LENGTH || in.substring(TODO_PREFIX_LENGTH).trim().isEmpty()) {
+            throw new BingBongException("The description of a todo cannot be blank.");
+        }
+    }
+
+    /**
+     * Helper check to ensure simple argument commands have accurate parameters.
+     */
+    private static void validateSingleArgumentCommand(String in, int prefixLength, String name) throws BingBongException {
+        if (in.length() <= prefixLength || in.substring(prefixLength).trim().isEmpty()) {
+            throw new BingBongException("The argument parameters for " + name + " cannot be blank.");
+        }
+    }
+
+    /**
      * Splits a deadline command string line into its description and target date components.
      *
      * @param in The full deadline command string line.
@@ -102,9 +132,14 @@ public class Parser {
      */
     public static String[] parseDeadline(String in) throws BingBongException {
         if (in.length() <= DEADLINE_PREFIX_LENGTH || in.substring(DEADLINE_PREFIX_LENGTH - 1).trim().isEmpty()) {
-            throw new BingBongException("The description of a deadline cannot be blank. :(");
+            throw new BingBongException("The description of a deadline cannot be blank.");
         }
         String content = in.substring(DEADLINE_PREFIX_LENGTH);
+
+        if (content.split(DEADLINE_DELIMITER).length > MAXIMUM_SPLIT_PARTS) {
+            throw new BingBongException("A deadline command cannot contain multiple '/by' flags.");
+        }
+
         int byIndex = content.indexOf(DEADLINE_DELIMITER);
         if (byIndex == -1) {
             throw new BingBongException("A deadline must include a target timing using '/by'.");
@@ -113,7 +148,7 @@ public class Parser {
         String by = content.substring(byIndex + DEADLINE_DELIMITER.length()).trim();
         if (desc.isEmpty() || by.isEmpty()) {
             throw new BingBongException(
-                    "Missing fields. BingBong needs the deadline description and target time of the deadline. :(");
+                    "Missing fields. Accurate deadline description and target time are required.");
         }
         return new String[]{desc, by};
     }
@@ -127,9 +162,15 @@ public class Parser {
      */
     public static String[] parseEvent(String in) throws BingBongException {
         if (in.length() <= EVENT_PREFIX_LENGTH || in.substring(EVENT_PREFIX_LENGTH - 1).trim().isEmpty()) {
-            throw new BingBongException("The description of an event cannot be blank. :(");
+            throw new BingBongException("The description of an event cannot be blank.");
         }
         String content = in.substring(EVENT_PREFIX_LENGTH);
+
+        if (content.split(EVENT_FROM_DELIMITER).length > MAXIMUM_SPLIT_PARTS
+                || content.split(EVENT_TO_DELIMITER).length > MAXIMUM_SPLIT_PARTS) {
+            throw new BingBongException("An event command cannot contain multiple '/from' or '/to' flags.");
+        }
+
         int fromIndex = content.indexOf(EVENT_FROM_DELIMITER);
         int toIndex = content.indexOf(EVENT_TO_DELIMITER);
         if (fromIndex == -1 || toIndex == -1 || fromIndex > toIndex) {
@@ -140,7 +181,7 @@ public class Parser {
         String to = content.substring(toIndex + EVENT_TO_DELIMITER.length()).trim();
         if (desc.isEmpty() || from.isEmpty() || to.isEmpty()) {
             throw new BingBongException(
-                    "Missing fields. BingBong needs the event description, start and end parameters.");
+                    "Missing fields. Accurate event description, start, and end parameters are required.");
         }
         return new String[]{desc, from, to};
     }
@@ -151,6 +192,4 @@ public class Parser {
     public enum CommandType {
         LIST, MARK, UNMARK, TODO, DEADLINE, EVENT, DELETE, DATES, FIND, BYE, HELP, UNKNOWN
     }
-
-
 }
