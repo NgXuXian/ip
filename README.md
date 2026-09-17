@@ -1,6 +1,6 @@
 # BingBong Chatbot - User Guide
 
-BingBong is a premium dark-mode desktop task assistant optimized for tracking your tasks, deadlines, and active event calendars efficiently via a fast Command Line Interface (CLI) text box.
+BingBong is a premium dark-mode desktop task assistant optimised for tracking your tasks, deadlines, and active event calendars efficiently via a fast Command Line Interface (CLI) text box.
 
 ---
 
