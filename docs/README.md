@@ -88,16 +88,16 @@ Safely commits all modified data back into your save file and closes the window 
 
 ## Action Command Summary Cheat-Sheet
 
-| Action Target | Command Format Line | Concrete Usage Sample Case |
-| :--- | :--- | :--- |
-| **List Items** | `list` | `list` |
-| **Add Todo** | `todo DESCRIPTION` | `todo Read CS2103 textbook` |
-| **Add Deadline** | `deadline DESCRIPTION /by DD/MM/YYYY` | `deadline Submit project /by 18/09/2026` |
+| Action Target | Command Format Line | Example Use Cases                             |
+| :--- | :--- |:----------------------------------------------|
+| **List Items** | `list` | `list`                                        |
+| **Add Todo** | `todo DESCRIPTION` | `todo Read CS2103 textbook`                   |
+| **Add Deadline** | `deadline DESCRIPTION /by DD/MM/YYYY` | `deadline Submit project /by 18/09/2026`      |
 | **Add Event** | `event DESCRIPTION /from DD/MM/YYYY /to DD/MM/YYYY` | `event Class /from 21/09/2026 /to 21/09/2026` |
-| **Mark Task** | `mark INDEX` | `mark 1` |
-| **Unmark Task** | `unmark INDEX` | `unmark 1` |
-| **Find Keyword** | `find KEYWORD` | `find textbook` |
-| **Filter Dates** | `dates DD/MM/YYYY` | `dates 18/09/2026` |
-| **Get Help** | `help` | `help` |
-| **Delete Task** | `delete INDEX` | `delete 2` |
-| **Exit Program** | `bye` | `bye` |
+| **Mark Task** | `mark INDEX` | `mark 1`                                      |
+| **Unmark Task** | `unmark INDEX` | `unmark 1`                                    |
+| **Find Keyword** | `find KEYWORD` | `find textbook`                               |
+| **Filter Dates** | `dates DD/MM/YYYY` | `dates 18/09/2026`                            |
+| **Get Help** | `help` | `help`                                        |
+| **Delete Task** | `delete INDEX` | `delete 2`                                    |
+| **Exit Program** | `bye` | `bye`                                         |
